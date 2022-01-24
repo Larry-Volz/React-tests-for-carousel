@@ -11,11 +11,12 @@ function Carousel(props) {
   const total = props.cardData.length;
 
   const goForward = () => {
-    if(cardIdx < props.cardData.length){
+    if(cardIdx < total){
         setCardIdx(cardIdx + 1)
       };
     };
-  const rightIconHidden = cardIdx === props.cardData.length-1 ? "hidden":"";
+  //ternary to turn T/F into 2 different classNames
+  const rightIconHidden = cardIdx === total-1 ? "hidden":"";
 
   const goBack = () => {
     if(cardIdx > 0) {
@@ -31,10 +32,10 @@ function Carousel(props) {
         <i
           className= {`fas fa-chevron-circle-left fa-2x ${leftIconHidden}`}
           onClick={goBack}
-          data-testid="left-arrow"
+          data-testid="left-arrow" //testid = marked specifically for tests to use
         />
         <Card
-          caption={card.caption}
+          caption={card.caption} //defined above - FROM Carousel prop, passed TO Card component
           src={card.src}
           currNum={cardIdx + 1}
           totalNum={total}
@@ -50,6 +51,7 @@ function Carousel(props) {
 }
 
 Carousel.defaultProps = {
+  title: "Shells from far away beaches.",
   cardData: [
     {
       src: image1,
@@ -63,8 +65,7 @@ Carousel.defaultProps = {
       src: image3,
       caption: "Photo by Josh Post on Unsplash"
     }
-  ],
-  title: "Shells from far away beaches."
+  ]
 };
 
 export default Carousel;
